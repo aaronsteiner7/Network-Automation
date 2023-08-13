@@ -1,0 +1,43 @@
+from netmiko import ConnectHandler
+
+def sendCommand(device, commands):
+    connection = ConnectHandler(**device)
+    connection.send_config_set(commands)
+    output = connection.send_command("show running-configuration ntp")
+    print("Showing output for host: {} \n".format(device['host']))
+    print(output)
+    #connection.save_config()
+    connection.disconnect()
+    return
+
+
+if __name__ == "__main__":
+    deviceList = []
+    inventory = []
+    with open('ntpInventory', 'r') as file:
+        inventory = file.readlines()
+    file.close()
+
+
+    numDevices = len(inventory)
+    for i in inventory:
+        deviceList.append(
+                    {
+        "device_type": "dell_os10",
+        "host": i.strip(),
+        "port": "22",
+        "username": "aaron.steiner",
+        "use_keys": True,
+        "key_file": "/home/admin/.ssh/id_rsa",
+    }
+    )
+
+    config_commands = ['ntp server <ip add> prefer',
+                        'ntp authentication-key 2239 md5 0 <password>',
+                        'ntp source mgmt1/1/1',
+                        'ntp trusted-key 2239',
+                        'ntp authenticate',
+                        'exit']
+    for dev in deviceList:
+        sendCommand(dev, config_commands)
+

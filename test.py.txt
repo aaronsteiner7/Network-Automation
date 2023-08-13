@@ -1,0 +1,9 @@
+from netmiko import ConnectHandler
+
+connection = ConnectHandler(host='<ip add>', port='22', username='na.aaron.steiner', use_keys=True, key_file='/home/admin/.ssh/id_rsa', device_type='dell_os10')
+
+output = connection.send_command('show inventory')
+
+print(output)
+
+connection.disconnect()

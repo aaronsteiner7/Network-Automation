@@ -1,0 +1,39 @@
+from netmiko import ConnectHandler
+
+def sendCommand(device, commands):
+    connection = ConnectHandler(**device)
+    output = connection.send_command(commands)
+    print("Showing output for host: {} \n".format(device['host']))
+    print(output)
+    connection.disconnect()
+    return
+
+
+
+if __name__ == "__main__":
+    deviceList = []
+    inventory = []
+    with open('inventory', 'r') as file:
+        inventory = file.readlines()
+        #print("inventory is ", inventory)
+        #devices['host'] = file.read().rstrip()
+    file.close()
+
+
+    numDevices = len(inventory)
+    for i in inventory:
+        deviceList.append(
+                    {
+        "device_type": "dell_os10",
+        "host": i.strip(),
+        "port": "22",
+        "username": "aaron.steiner",
+        "use_keys": True,
+        "key_file": "/home/admin/.ssh/id_rsa",
+    }
+    )
+
+    for dev in deviceList:
+        sendCommand(dev, "show inventory | find Tag")
+
+
