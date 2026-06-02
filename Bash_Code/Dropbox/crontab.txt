@@ -1,0 +1,3 @@
+* * * * * flock -n /tmp/small_rsync.lock /opt/dropbox/dropbox_sync_small.sh
+* * * * * flock -n /tmp/medium_rsync.lock /opt/dropbox/dropbox_sync_medium.sh
+* * * * * flock -n /tmp/large_rsync.lock /opt/dropbox/dropbox_sync_large.sh
