@@ -1,0 +1,10 @@
+---
+- hosts: OS9
+  gather_facts: False
+  collections:
+    - dellemc.os9.os9_config
+
+  tasks:
+    - name: Run show version play
+      os9_config:
+        lines: ['ntp server vrf management <ip add>']

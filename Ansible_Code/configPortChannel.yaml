@@ -1,0 +1,32 @@
+---
+- hosts: OS9
+  gather_facts: False
+  collections:
+    - dellemc.os9.os9_config
+
+  tasks:
+    - name: Configure Port-Channel 9
+      os9_config:
+        lines:
+          - description "Port-Channel 9 to MX"
+          - no ip address
+          - portmode hybrid
+          - switchport
+          - no spanning-tree pvst err-dis cause invalid-pvst-bpdu
+          - vlt-peer-lag port-channel 9
+          - no shut
+        parents: ['interface Port-channel 9']
+
+
+    - name: Configure Port-Channel 25
+      os9_config:
+        lines:
+          - description "Port-Channel 25 to Spines"
+          - no ip address
+          - portmode hybrid
+          - switchport
+          - no spanning-tree pvst err-dis cause invalid-pvst-bpdu
+          - vlt-peer-lag port-channel 25
+          - no shut
+        parents: ['interface Port-channel 25']
+

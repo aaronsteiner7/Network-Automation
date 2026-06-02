@@ -1,0 +1,27 @@
+---
+- hosts: OS9
+  gather_facts: False
+  collections:
+    - dellemc.os9.os9_config
+
+  tasks:
+    - name: Configure Tacacs+
+      os9_config:
+        lines:
+          - tacacs-server vrf management
+          - tacacs-server host x.x.x.x key <password> timeout 5
+          - tacacs-server host x.x.x.x key <password> timeout 5
+        parents: ['tacacs-server group letpa']
+
+
+    - name: Configure AAA
+      os9_config:
+        lines:
+          - aaa authentication enable default tacacs+ enable
+          - aaa authentication login default tacacs+ local
+          - aaa authorization exec default tacacs+ local
+          - aaa authorization commands 0 default tacacs+ local
+          - aaa authorization commands 1 default tacacs+ local
+          - aaa authorization commands 15 default tacacs+ local
+          - aaa tacacs group <group name>
+

@@ -1,0 +1,230 @@
+---
+- hosts: OS9
+  gather_facts: False
+  collections:
+    - dellemc.os9.os9_config
+
+  tasks:
+    - name: Configure Spanning-tree PVST priority
+      os9_config:
+        lines:
+          - no disable
+          - vlan 1-4094 bridge-priority 61440
+        parents: ['protocol spanning-tree pvst']
+
+    - name: Configure VLAN 550
+      os9_config:
+        lines:
+          - description v550
+          - tagged Po 9, 25
+          - no shut
+        parents: ['interface vlan 550']
+
+
+    - name: Configure VLAN 601
+      os9_config:
+        lines:
+          - tagged Po 25
+          - no shut
+        parents: ['interface vlan 601']
+        
+    - name: Configure VLAN 853
+      os9_config:
+        lines:
+          - description v853
+          - tagged Po 9, 25
+          - no shut
+        parents: ['interface vlan 853']
+        
+        
+    - name: Configure VLAN 1000
+      os9_config:
+        lines:
+          - description Unused 
+          - no shut
+        parents: ['interface vlan 1000']
+        
+        
+    - name: Configure VLAN 1001
+      os9_config:
+        lines:
+          - description Native-VLAN
+          - untagged Te 1/21,1/23
+          - no shut
+        parents: ['interface vlan 1001']
+        
+    - name: Configure VLAN 1149
+      os9_config:
+        lines:
+          - description v1149
+          - tagged Po 9, 25
+          - no shut
+        parents: ['interface vlan 1149']
+        
+        
+    - name: Configure VLAN 1150
+      os9_config:
+        lines:
+          - description v1150
+          - tagged Po 9, 25
+          - no shut
+        parents: ['interface vlan 1150']
+        
+    - name: Configure VLAN 1151
+      os9_config:
+        lines:
+          - description v1151
+          - tagged Po 9, 25
+          - no shut
+        parents: ['interface vlan 1151']
+        
+    - name: Configure VLAN 2190
+      os9_config:
+        lines:
+          - description v2190
+          - tagged Po 25
+          - no shut
+        parents: ['interface vlan 2190']
+        
+    - name: Configure VLAN 2191
+      os9_config:
+        lines:
+          - description v2191 
+          - tagged Po 25
+          - no shut
+        parents: ['interface vlan 2191']
+        
+    - name: Configure VLAN 2228
+      os9_config:
+        lines:
+          - description v2228 
+          - tagged Po 25
+          - tagged Te 1/11,1/12,1/21,1/23
+          - untagged Te 1/15
+          - no shut
+        parents: ['interface vlan 2228']
+        
+    - name: Configure VLAN 2229
+      os9_config:
+        lines:
+          - description v2229
+          - tagged Po 25
+          - tagged Te 1/11,1/12,1/15
+          - no shut
+        parents: ['interface vlan 2229']
+        
+    - name: Configure VLAN 2230
+      os9_config:
+        lines:
+          - description v2230 
+          - tagged Po 9, 25
+          - untagged Te 1/11-1/14,1/33-1/36
+          - no shut
+        parents: ['interface vlan 2230']
+        
+    - name: Configure VLAN 2231
+      os9_config:
+        lines:
+          - description v2231 
+          - tagged Po 9, 25
+          - no shut
+        parents: ['interface vlan 2231']
+        
+    - name: Configure VLAN 2232
+      os9_config:
+        lines:
+          - description v2232 
+          - tagged Po 25
+          - no shut
+        parents: ['interface vlan 2232']
+        
+    - name: Configure VLAN 2233
+      os9_config:
+        lines:
+          - description v2233 
+          - tagged Po 9, 25
+          - no shut
+        parents: ['interface vlan 2233']
+        
+    - name: Configure VLAN 2234
+      os9_config:
+        lines:
+          - description v2234 
+          - tagged Po 9, 25
+          - no shut
+        parents: ['interface vlan 2234']
+        
+    - name: Configure VLAN 2235
+      os9_config:
+        lines:
+          - description v2235
+          - tagged Po 25
+          - no shut
+        parents: ['interface vlan 2235']
+        
+    - name: Configure VLAN 2236
+      os9_config:
+        lines:
+          - description v2236
+          - tagged Po 9, 25
+          - no shut
+        parents: ['interface vlan 2236']
+        
+    - name: Configure VLAN 2239
+      os9_config:
+        lines:
+          - description v2239
+          - tagged Po 9, 25
+          - tagged Te 1/11,1/12
+          - no shut
+        parents: ['interface vlan 2239']
+        
+    - name: Configure VLAN 2243
+      os9_config:
+        lines:
+          - description v2243
+          - tagged Po 25
+          - no shut
+        parents: ['interface vlan 2243']
+        
+    - name: Configure VLAN 2247
+      os9_config:
+        lines:
+          - description v2247
+          - tagged Po 9, 25
+          - no shut
+        parents: ['interface vlan 2247']
+        
+    - name: Configure VLAN 4007
+      os9_config:
+        lines:
+          - description v4007
+          - tagged Po 25
+          - tagged Te1/15
+          - untagged Te1/19
+          - no shut
+        parents: ['interface vlan 4007']
+        
+    - name: Configure VLAN 4023
+      os9_config:
+        lines:
+          - description v4023 
+          - tagged Po 9, 25
+          - no shut
+        parents: ['interface vlan 4023']
+        
+    - name: Configure VLAN 4024
+      os9_config:
+        lines:
+          - description v4024 
+          - tagged Po 25
+          - no shut
+        parents: ['interface vlan 4024']
+        
+    - name: Configure VLAN 4075
+      os9_config:
+        lines:
+          - description v4075 
+          - tagged Po 25
+          - no shut
+        parents: ['interface vlan 4075']

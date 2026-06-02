@@ -1,0 +1,29 @@
+---
+- name: Backup Fibre Channel Switch
+  hosts: NXOS
+  gather_facts: no
+
+  vars:
+    # Directory where config backups will be saved to
+    output_dir: "./backups/NXOS"
+    # Formatted name of the config file
+    target_file: "{{ output_dir }}/{{ ansible_net_hostname }}-{{ now(utc=true,fmt='%Y%m%d') }}-backup.txt"
+
+  tasks:
+    - name: Check output directory
+      file:
+        path: "{{ output_dir }}"
+        state: directory
+      delegate_to: localhost
+
+    - name: Get raw host config
+      ansible.builtin.raw: 'show running-config'
+      register: raw_output
+
+    - name: Save config to local directory
+      copy:
+        content: "{{ raw_output.stdout }}"
+        dest: "{{ target_file }}"
+      delegate_to: localhost
+
+  
